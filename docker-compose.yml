@@ -1,0 +1,27 @@
+version: '3'
+
+  services:
+    db:
+      build: db_docker
+      image: anywayteam/db:latest
+      container_name: db
+      environment:
+        - DBRESTORE_AWS_ACCESS_KEY_ID
+        - DBRESTORE_AWS_SECRET_ACCESS_KEY
+      volumes:
+        - db_data:/var/lib/postgresql/data
+      ports:
+        - "9876:5432"
+      restart: always
+    web:
+      build: .
+      command: python manage.py runserver 0.0.0.0:8000
+      volumes:
+        - .:/code
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db
+
+volumes:
+  db_data:
