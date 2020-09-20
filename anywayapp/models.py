@@ -121,14 +121,6 @@ class AgeGroup(models.Model):
         unique_together = (('id', 'year', 'provider_code'),)
 
 
-class AlembicVersion(models.Model):
-    version_num = models.CharField(max_length=32)
-
-    class Meta:
-        managed = False
-        db_table = 'alembic_version'
-
-
 class Bg(models.Model):
     gid = models.AutoField()
     statefp = models.CharField(max_length=2, blank=True, null=True)
